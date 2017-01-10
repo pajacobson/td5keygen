@@ -1,2 +1,2 @@
-# td5keygen
-Keygen for Td5 ECU diagnostics
+# Td5 keygen
+Keygen for Td5 ECU diagnostics protocol.
