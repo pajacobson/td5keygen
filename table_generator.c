@@ -1,5 +1,5 @@
 /* 
-File:   table_generator.h
+File:   table_generator.c
 
 Original work by:
 Copyright (c) 2017, paul@discotd5.com
