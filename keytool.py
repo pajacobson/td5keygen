@@ -36,20 +36,28 @@
 
 #!/usr/bin/python
 
-import sys
+from sys import argv
 
 def printhelp():
     print "\nLand Rover Td5 Storm Engine ECU auth keygen"
     print "Usage:"
-    print "\tGet key with seed (0-65535), example:"
+    print "\tGet key with seed (0-65535), for example:\n"
     print "\t\tkeytool.py 1082"
-    print "\t\tWill return key"
+    print "\tor"
+    print "\t\tkeytool.py 0x043A\n"
+    print "\twill return key"
+    
     exit()
 
-if len(sys.argv)==2:
-    if 0<=int(sys.argv[1])<=0xFFFF:
+if len(argv)==2:
+    # 
+    if  argv[1].startswith("0x"):
+        seedin = int(argv[1],16)
+    else:
+        seedin = int(argv[1])      
+            
+    if 0<=seedin<=0xFFFF:
 
-        seedin=int(sys.argv[1])
         seed=seedin
         
         count = ((seed >> 0xC & 0x8) + (seed >> 0x5 & 0x4) + (seed >> 0x3 & 0x2) + (seed & 0x1)) + 1
@@ -63,12 +71,8 @@ if len(sys.argv)==2:
                         seed = tmp | 1
 
         #Calculate high and low bytes, for auth response      
-        if (seed<256):
-            high=0x00
-            low=seed
-        else:
-            high=seed/256
-            low=seed%256
+        high = seed >> 8
+        low = seed & 255
             
         print "Seed: ",seedin," (",hex(seedin),") - Key: ",seed," (",hex(seed),") "
     else:
