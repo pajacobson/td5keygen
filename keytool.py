@@ -63,7 +63,7 @@ if len(argv)==2:
         count = ((seed >> 0xC & 0x8) + (seed >> 0x5 & 0x4) + (seed >> 0x3 & 0x2) + (seed & 0x1)) + 1
 
         for idx in range(0, count):
-                tap = ((seed >> 1) ^ (seed >> 2 ) ^ (seed >> 8 ) ^ (seed >> 9)) & 1
+                tap = ((seed >> 1) + (seed >> 2 ) + (seed >> 8 ) + (seed >> 9)) & 1
                 tmp = (seed >> 1) | ( tap << 0xF)
                 if (seed >> 0x3 & 1) and (seed >> 0xD & 1):
                         seed = tmp & ~1
