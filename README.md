@@ -98,8 +98,12 @@ This can be compiled using
 
 	gcc demo.c keygen.c -o demo.o  
 and run by typing  
+
 	.\demo.o  
+
 from the same directory.  
+The demo will take two hex bytes (without leading "0x") and return the combined seed,  
+calculated key value and the seperated bytes of the key.
 
     Td5 security key example usage.
 
