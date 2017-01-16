@@ -69,10 +69,9 @@ void keyGenerate(keyBytes_t * key) {
     uint8_t count, tap, idx = 0;
     
     seed.all = key->keyword;
- 
+    
     count = ((seed.bit15 * 8) + (seed.bit07 * 4) + (seed.bit04 * 2 ) + (seed.bit00)) + 1;
 
-    
     while (idx < count) {
         
         tap = (seed.bit01 ) ^ (seed.bit02) ^ (seed.bit08 ) ^ (seed.bit09);
@@ -84,7 +83,6 @@ void keyGenerate(keyBytes_t * key) {
         seed.all = tmp.all;
         
         idx++;
-    }
-            
+    }         
     key->keyword = seed.all;
 }
