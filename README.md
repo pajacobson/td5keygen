@@ -11,7 +11,7 @@ The seed value is assumed to have big endian byte ordering:
 keygen_bitfield.c is a version of the keygen that uses C bitfields and union structure to elminate the bit-twiddling.
 This version is faster than keygen.c but likely to be less portable. It's probably worth a look even if you plan not to use this version as the bits the algorithm manipulates are not obscured by masks and shifts.
 
-** Td5 Security Access - seed request 
+## Td5 Security Access - seed request 
 
 The ISO14230 securityAccess request has the following format:
 
@@ -39,8 +39,10 @@ If prefered, simple bitshifting of the seeds can be done to combine the individu
 
    seed = seed_1 << 8 | seed_2
 
+
 - - -
-**** Long winded explanation
+
+#### Long winded explanation
 
 Looking at the binary representation shows how this works.
 
@@ -59,6 +61,7 @@ then OR the two numbers to combine the bits that are set the first OR second num
     b0011 0100 1010 0101  (0x34A5)
 
 - - -
+
 
 It really doesn't matter which method you use to combine the two seed bytes providing the input to the core algorithm is a correctly ordered 16 bit seed.
 
@@ -86,7 +89,12 @@ Assuming you've done everything correctly the ECU should send a positive respons
 
 ## Demo code
 There is a demonstration of how the C code is used in the file "demo.c"
-This can be compiled using  "gcc demo.c keygen.c -o demo.o", and run by typing ".\demo.o" from the same directory.
+This can be compiled using
+
+	gcc demo.c keygen.c -o demo.o
+and run by typing
+	.\demo.o
+from the same directory.
 
     Td5 security key example usage.
 
@@ -98,7 +106,7 @@ This can be compiled using  "gcc demo.c keygen.c -o demo.o", and run by typing "
     high byte: 54	low byte: D3  
 
 
-## Change Log
+### Change Log
 
 2017-01-16:
 - Merge pull request from EA2EGA
