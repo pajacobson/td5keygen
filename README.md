@@ -69,21 +69,23 @@ It really doesn't matter which method you use to combine the two seed bytes prov
 ## Td5 Security Access - seed response
 The response sent from the tester to the ECU contains the two bytes calcuated from the seed bytes using the keygen.
 
-    04 27 02 54 D3 54
-             ^^ ^^
-	securityAccess Request Service ID = 0x27
-	keySend = 0x02
-   	key#1 = high byte (e.g. 0x54)
-   	key#2 = low byte (e.g. 0xD3)
+
+    04 27 02 54 D3 54  
+             ^^ ^^  
+
+	securityAccess Request Service ID = 0x27  
+	keySend = 0x02  
+   	key#1 = high byte (e.g. 0x54)  
+   	key#2 = low byte (e.g. 0xD3)  
 
  The single value returned by the keygen can be broken into bytes for transmission to the ECU using bit shifts and masks.
     
-    high_byte = returned_key >> 8;
+    high_byte = returned_key >> 8;  
     low_byte = returned_key & 0xFF;  	
 
 Assuming you've done everything correctly the ECU should send a positive response message indicating that the tester has securityAccess to the ECU.
 
-    02 67 02 6B
+    02 67 02 6B  
 
  And you can now do stuff...
 
@@ -91,10 +93,10 @@ Assuming you've done everything correctly the ECU should send a positive respons
 There is a demonstration of how the C code is used in the file "demo.c"
 This can be compiled using
 
-	gcc demo.c keygen.c -o demo.o
-and run by typing
-	.\demo.o
-from the same directory.
+	gcc demo.c keygen.c -o demo.o  
+and run by typing  
+	.\demo.o  
+from the same directory.  
 
     Td5 security key example usage.
 
