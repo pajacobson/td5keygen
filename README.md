@@ -15,22 +15,25 @@ This version is faster than keygen.c but likely to be less portable. It's probab
 
 The ISO14230 securityAccess request has the following format:
 
-securityAccess Request#1 Service ID = 0x27
-requestSeed = 0x01
+- securityAccess Request#1 Service ID = 0x27
+- requestSeed = 0x01
 
 So the Td5 security access request sent from the test to the ECU is formatted as:
-02 27 01 2A
-   ^^ ^^
 
-The ECU responds with the seed values:
-04 67 01 34 A5 45
-         ^^ ^^
+    02 27 01 2A
+       ^^ ^^
+
+The ECU responds with the seed values:   
+
+    04 67 01 34 A5 45
+             ^^ ^^  
+
 This message is decoded as:
 
-   securityAccess Positive Response Service ID = 0x67
-   requestSeed = 0x01
-   seed#1 = high byte (e.g. 0x34)
-   seed#2 = low byte (e.g. 0xA5)
+- securityAccess Positive Response Service ID = 0x67
+- requestSeed = 0x01
+- seed#1 = high byte (e.g. 0x34)
+- seed#2 = low byte (e.g. 0xA5)
 
 
 The typedef union given in keygen.h is a C construct that allows the seed to be accessed as individual bytes or the complete seed.  This avoids the need to bitshift manually.
@@ -73,15 +76,15 @@ The response sent from the tester to the ECU contains the two bytes calcuated fr
     04 27 02 54 D3 54  
              ^^ ^^  
 
-	securityAccess Request Service ID = 0x27  
-	keySend = 0x02  
-   	key#1 = high byte (e.g. 0x54)  
-   	key#2 = low byte (e.g. 0xD3)  
+- securityAccess Request Service ID = 0x27  
+- keySend = 0x02  
+- key#1 = high byte (e.g. 0x54)  
+- key#2 = low byte (e.g. 0xD3)  
 
- The single value returned by the keygen can be broken into bytes for transmission to the ECU using bit shifts and masks.
+The single value returned by the keygen can be broken into bytes for transmission to the ECU using bit shifts and masks.
     
-    high_byte = returned_key >> 8;  
-    low_byte = returned_key & 0xFF;  	
+- high_byte = returned_key >> 8;  
+- low_byte = returned_key & 0xFF;  	
 
 Assuming you've done everything correctly the ECU should send a positive response message indicating that the tester has securityAccess to the ECU.
 
