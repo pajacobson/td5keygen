@@ -39,14 +39,14 @@ either expressed or implied, of the FreeBSD Project.
 extern "C" {
 #endif
     
-#include <xc.h>
+//#include <xc.h>
 #include <stdint.h>
     
 typedef union {
 	uint16_t keyword;
     struct {
-        uint8_t hi_byte : 8;
-        uint8_t lo_byte : 8;
+        uint8_t low_byte : 8,
+                high_byte : 8;
     };
 
 } keyBytes_t ;    

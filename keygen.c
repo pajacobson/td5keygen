@@ -32,35 +32,33 @@ of the authors and should not be interpreted as representing official policies,
 either expressed or implied, of the FreeBSD Project.
 */
 
+/*
+ Timed processor cycle count = 328 with seed = 0x8091 running on PIC32MX795F512
+*/
 
-#include "headers/keygen.h"
+#include "keygen.h"
 
 void keyGenerate(keyBytes_t * key) {
 
     uint16_t seed = key->keyword;
-    uint16_t seed_tmp = 0;
+    uint16_t tmp = 0;
     uint8_t count = 0;
     uint8_t idx;
-    uint8_t fib_tap = 0;
-
-
+    uint8_t tap = 0;
 
     count = ((seed >> 0xC & 0x8) | (seed >> 0x5 & 0x4) | (seed >> 0x3 & 0x2) | (seed & 0x1)) + 1;
     
-    for (idx = 1; idx <= count; idx++) {
+    for (idx = 0; idx < count; idx++) {
         
-        fib_tap = ((seed >> 1 ) ^ (seed >> 2 ) ^ (seed >> 8 ) ^ (seed >> 9 )) & 1;
+        tap = ((seed >> 1 ) ^ (seed >> 2 ) ^ (seed >> 8 ) ^ (seed >> 9 )) & 1;
         
-        seed_tmp = ((seed >> 1) | (fib_tap << 0xF));
+        tmp = ((seed >> 1) | (tap << 0xF));
         
-        if ((seed >> 0x3 & 1) && (seed >> 0xD & 1)){
-            seed =  seed_tmp & ~1;  // clear lsb
+        if ((seed >> 0x3 & 1) && (seed >> 0xD & 1)) {
+            seed = tmp & ~1; 
         } else {
-            seed = seed_tmp | 1;   // set lsb
+            seed = tmp | 1;
         }
     }
-            
-
-    key->keyword = (uint16_t)seed;
-
+    key->keyword = seed;    
 }
