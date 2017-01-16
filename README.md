@@ -83,8 +83,8 @@ The response sent from the tester to the ECU contains the two bytes calcuated fr
 
 The single value returned by the keygen can be broken into bytes for transmission to the ECU using bit shifts and masks.
     
-- high_byte = returned_key >> 8;  
-- low_byte = returned_key & 0xFF;  	
+    high_byte = returned_key >> 8;  
+    low_byte = returned_key & 0xFF;  	
 
 Assuming you've done everything correctly the ECU should send a positive response message indicating that the tester has securityAccess to the ECU.
 
